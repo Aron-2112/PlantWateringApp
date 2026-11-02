@@ -3,91 +3,122 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>YourStartup</title>
-  <meta name="description" content="A student startup prototype for BSAD 281.">
+  <meta name="description" content="A simple watering schedule shaped around your plants.">
+  <title>Sprout - Plant care</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- =========================================================
-       HEADER: logo text + navigation.
-       Each link points to a "view" further down the page (#home, #explore, #about).
-       ========================================================= -->
   <header class="site-header">
-    <a class="brand" href="#home" id="brand-name">YourStartup</a>
-    <nav aria-label="Main">
-      <a href="#home">Home</a>
-      <a href="#explore">Explore</a>
-      <a href="#about">About</a>
+    <a class="brand" href="#garden"><span class="brand-mark" aria-hidden="true">s</span> sprout</a>
+    <nav aria-label="Main navigation">
+      <a href="#garden">My garden</a>
+      <a href="#add-plant">Add a plant</a>
     </nav>
   </header>
 
   <main>
-
-    <!-- =======================================================
-         VIEW 1: HOME — what you do, for whom, and why it matters.
-         ======================================================= -->
-    <section id="home" data-view>
-      <div class="hero">
-        <p class="eyebrow">Prototype</p>
-        <h1 id="tagline">One sentence that says what your startup does.</h1>
-        <p class="lead" id="pitch">
-          Who is your customer, what problem do they have, and why is your
-          solution better than what they use today?
-        </p>
-        <a class="button" href="#explore">See it in action</a>
+    <section id="garden" data-view>
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">A little care goes a long way</p>
+          <h1>My garden</h1>
+        </div>
+        <p class="today-label" id="today-label"></p>
       </div>
 
-      <div class="steps">
-        <div class="card">
-          <h2>1. Step one</h2>
-          <p>Describe the first thing a customer does.</p>
+      <div class="summary" aria-label="Garden summary">
+        <div class="summary-item summary-due">
+          <span class="summary-number" id="due-count">0</span>
+          <span class="summary-label">need water</span>
         </div>
-        <div class="card">
-          <h2>2. Step two</h2>
-          <p>Describe what happens next.</p>
+        <div class="summary-item">
+          <span class="summary-number" id="plant-count">0</span>
+          <span class="summary-label">plants in your garden</span>
         </div>
-        <div class="card">
-          <h2>3. Step three</h2>
-          <p>Describe the result the customer gets.</p>
-        </div>
+        <a class="button" href="#add-plant">Add a plant <span aria-hidden="true">+</span></a>
       </div>
+
+      <section class="content-section" aria-labelledby="due-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Your next little task</p>
+            <h2 id="due-heading">Ready for a drink</h2>
+          </div>
+        </div>
+        <div class="task-list" id="due-list"></div>
+        <p class="quiet-state" id="due-empty" hidden>Nothing thirsty today. Enjoy the breathing room.</p>
+      </section>
+
+      <section class="content-section collection-section" aria-labelledby="collection-heading">
+        <div class="section-heading collection-heading">
+          <div>
+            <p class="eyebrow">Growing at your pace</p>
+            <h2 id="collection-heading">Your plants</h2>
+          </div>
+          <label class="filter-control">
+            <span>Show</span>
+            <select id="plant-filter" aria-label="Filter plants by type">
+              <option value="all">All plants</option>
+            </select>
+          </label>
+        </div>
+        <div class="plant-grid" id="plant-grid"></div>
+        <div class="quiet-state empty-garden" id="garden-empty" hidden>
+          <span class="empty-sun" aria-hidden="true">+</span>
+          <h3>Your garden starts here</h3>
+          <p>Add the plants you’re growing to get a care rhythm that fits each one.</p>
+          <a class="button" href="#add-plant">Add your first plant</a>
+        </div>
+      </section>
     </section>
 
-    <!-- =======================================================
-         VIEW 2: EXPLORE — a list built from the fake data in data.js.
-         ======================================================= -->
-    <section id="explore" data-view hidden>
-      <h1>Explore</h1>
-      <p class="muted">These examples are fake. They come from <code>data.js</code>.</p>
+    <section id="add-plant" data-view hidden>
+      <div class="form-intro">
+        <p class="eyebrow">Make it yours</p>
+        <h1>Add a plant</h1>
+        <p>Start with a plant profile, then tune the watering rhythm to your home.</p>
+      </div>
+      <form class="plant-form" id="plant-form">
+        <label for="plant-name">Plant name</label>
+        <input id="plant-name" name="name" type="text" placeholder="e.g. Monstera by the window" maxlength="50" required>
 
-      <label class="search">
-        <span>Search</span>
-        <input type="search" id="search-box" placeholder="Type to filter…">
-      </label>
+        <label for="plant-type">Plant type</label>
+        <select id="plant-type" name="type" required>
+          <option value="" disabled selected>Choose a plant type</option>
+        </select>
 
-      <p class="muted" id="saved-count"></p>
-      <div class="grid" id="listing-grid"></div>
-      <p class="empty" id="empty-message" hidden>Nothing matches your search.</p>
+        <div id="custom-species-wrap" hidden>
+          <label for="custom-species">What kind of plant?</label>
+          <input id="custom-species" name="customSpecies" type="text" placeholder="e.g. Calathea" maxlength="40">
+        </div>
+
+        <div class="care-preview" id="care-preview" aria-live="polite">
+          <span class="care-preview-mark" aria-hidden="true"></span>
+          <p>Choose a plant type to see its starting care notes.</p>
+        </div>
+
+        <label for="watering-interval">Water every</label>
+        <div class="interval-input">
+          <input id="watering-interval" name="interval" type="number" min="1" max="60" value="7" required>
+          <span>days</span>
+        </div>
+        <p class="field-hint">This is a starting point. Check the soil and adjust for your plant and home.</p>
+
+        <label for="plant-location">Where is it? <span class="optional">Optional</span></label>
+        <input id="plant-location" name="location" type="text" placeholder="e.g. Kitchen shelf" maxlength="40">
+
+        <div class="form-actions">
+          <button class="button" type="submit">Add to my garden</button>
+          <a class="cancel-link" href="#garden">Cancel</a>
+        </div>
+      </form>
     </section>
-
-    <!-- =======================================================
-         VIEW 3: ABOUT — your team and your story.
-         ======================================================= -->
-    <section id="about" data-view hidden>
-      <h1>About us</h1>
-      <p>Tell the story of why your team started this company.</p>
-      <p>Use first names only, or no names at all — this site is public.</p>
-    </section>
-
   </main>
 
-  <!-- Keep this footer. Your site must say it is a student project. -->
   <footer class="site-footer">
-    <p>Student prototype for BSAD 281 at St. Francis Xavier University. Not a real company — all data is fictional.</p>
+    <p>Student prototype for BSAD 281 at St. Francis Xavier University. Not a real company; plant care suggestions are starting points.</p>
   </footer>
 
-  <!-- Scripts load in this order: data first, then the code that uses it. -->
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>

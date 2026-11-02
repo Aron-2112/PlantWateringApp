@@ -1,26 +1,15 @@
-// ============================================================
-// data.js — ALL the fake data for your prototype lives here.
-//
-// There is no database. Everything below is made up, and that is
-// on purpose: never put real people's names, emails, phone numbers
-// or addresses in this file.
-//
-// To change what appears on the Explore page, edit LISTINGS.
-// Each item is one card. Keep the same fields (id, name, category,
-// description) or ask Copilot to add new ones everywhere they're needed.
-// ============================================================
+// Plant profiles are starting points. Adjust the interval for your own space.
+const PLANT_TYPES = [
+  { id: "monstera", name: "Monstera", days: 7, light: "Bright, indirect light", tip: "Let the top few centimetres of soil dry between waterings." },
+  { id: "pothos", name: "Pothos", days: 7, light: "Low to bright, indirect light", tip: "Water when the top of the soil feels dry." },
+  { id: "snake-plant", name: "Snake plant", days: 21, light: "Low to bright light", tip: "Let the soil dry out completely before watering." },
+  { id: "peace-lily", name: "Peace lily", days: 5, light: "Medium, indirect light", tip: "Keep the soil lightly moist, not soggy." },
+  { id: "succulent", name: "Succulent", days: 14, light: "Bright light", tip: "Water deeply, then let the soil dry completely." },
+  { id: "herbs", name: "Indoor herbs", days: 3, light: "Bright light", tip: "Check the soil often; small pots can dry quickly." }
+];
 
-const STARTUP = {
-  name: "YourStartup",
-  tagline: "One sentence that says what your startup does.",
-  pitch: "Who is your customer, what problem do they have, and why is your solution better than what they use today?"
-};
-
-const LISTINGS = [
-  { id: 1, name: "Sample listing A", category: "Category 1", description: "A short description of this item." },
-  { id: 2, name: "Sample listing B", category: "Category 2", description: "A short description of this item." },
-  { id: 3, name: "Sample listing C", category: "Category 1", description: "A short description of this item." },
-  { id: 4, name: "Sample listing D", category: "Category 3", description: "A short description of this item." },
-  { id: 5, name: "Sample listing E", category: "Category 2", description: "A short description of this item." },
-  { id: 6, name: "Sample listing F", category: "Category 3", description: "A short description of this item." }
+const STARTER_PLANTS = [
+  { id: "starter-monstera", name: "Monstera", typeId: "monstera", interval: 7, location: "Living room", lastWateredOffset: -7 },
+  { id: "starter-pothos", name: "Golden pothos", typeId: "pothos", interval: 7, location: "Bookshelf", lastWateredOffset: -5 },
+  { id: "starter-snake", name: "Snake plant", typeId: "snake-plant", interval: 21, location: "Bedroom", lastWateredOffset: -15 }
 ];
